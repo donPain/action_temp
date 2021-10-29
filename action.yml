@@ -1,0 +1,13 @@
+name: 'Hello World'
+description: 'Greet someone and record the time'
+inputs:
+  accountId:  # id do grupo de trabalho
+    description: 'id do grupo de trabalho'
+    required: true
+    default: '1'
+outputs:
+  time: # id da saída
+    description: 'Atividade comentada'
+runs:
+  using: 'node17'
+  main: 'index.js'
