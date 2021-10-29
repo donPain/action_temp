@@ -9,5 +9,5 @@ outputs:
   time: # id da saída
     description: 'Atividade comentada'
 runs:
-  using: 'node17'
+  using: 'node12'
   main: 'index.js'
