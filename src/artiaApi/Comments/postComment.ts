@@ -13,6 +13,7 @@ module.exports = async function createComment(
   organizationId: number,
   accountId: number,
   activityId: number,
+  creatorEmail: string,
   content: string
 ) {
   var newToken = await asyncGetToken();
@@ -30,7 +31,7 @@ module.exports = async function createComment(
           id: ${activityId}, #obrigatório
           object: "activity", #obrigatório
           content: "${content}", #obrigatório | Quando for string dentro de variável com $ usar tbm os ""
-          createdBy: "nerdplis@gmail.com", #opcional, pode ser id ou email
+          createdBy: "${creatorEmail}", #opcional, pode ser id ou email
       ) {
           id,
           content,

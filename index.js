@@ -8,13 +8,14 @@ const payload            = JSON.stringify(github.context.payload, undefined, 2)
 const objPayload         = JSON.parse(payload)
 const organizationId     = core.getInput('organizationId') //OrganizationId informado no main.yml do workflow
 const accountId          = core.getInput('accountId') //AccountId informado no main.yml do workflow
+const creatorEmail       = core.getInput('creatorEmail') //Email criador do comentário.
 
 try {
 
 
 
 switch (event){
-  
+
   case 'push':
     const pushActivityId     = objPayload.commits[0].message.split('[').pop().split(']')[0]; 
     var pushContent          = objPayload.commits[0].message.replace('[]'," ").replace(pushActivityId.toString," ");
@@ -26,7 +27,7 @@ switch (event){
     const pullRequest    = objPayload.pull_request;  
     const prActivityId   = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
     var prContent        = pullRequest.body.toString();
-    var newComment       = postComment(organizationId, accountId, prActivityId, prContent);
+    var newComment       = postComment(organizationId, accountId, prActivityId,creatorEmail, prContent);
   break;
     
   }
