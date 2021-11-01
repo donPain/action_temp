@@ -14,17 +14,17 @@ const accountId          = core.getInput('accountId') //AccountId informado no m
 
 switch (event){
   case 'push':
-    var content          = objPayload.commits[0].message;
-    const activityId     = content.split('[').pop().split(']')[0]; 
-    content              = content.replace('['+activityId.toString+']',"");
-    var newComment       = postComment(organizationId, accountId, activityId, content);
+    var pushContent          = objPayload.commits[0].message;
+    const pushActivityId     = pushContent.split('[').pop().split(']')[0]; 
+    pushContent              = content.replace('['+pushActivityId.toString+']',"");
+    var newComment       = postComment(organizationId, accountId, pushActivityId, pushContent);
   break;
 
   case 'pull_request':
-    const pullRequest    = objPayload.pull_request;  
-    const activityId     = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
-    const content        = pullRequest.body.toString();
-    var newComment       = postComment(organizationId, accountId, activityId, content);
+    const pullRequest     = objPayload.pull_request;  
+    const prActivityId     = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
+    var prContent        = pullRequest.body.toString();
+    var newComment       = postComment(organizationId, accountId, prActivityId, prContent);
   break;
     
   }
