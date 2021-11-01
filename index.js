@@ -14,8 +14,8 @@ try {
   const pullRequest = objPayload.pull_request;
   
 
-const organizationId = code.getInput('organizationId') //OrganizationId informado no main.yml do workflow
-const accountId  = code.getInput('accountId') //AccountId informado no main.yml do workflow
+const organizationId = core.getInput('organizationId') //OrganizationId informado no main.yml do workflow
+const accountId  = core.getInput('accountId') //AccountId informado no main.yml do workflow
 const activityId = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
 const content    = pullRequest.body.toString();
 
