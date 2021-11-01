@@ -1,6 +1,11 @@
+// @ts-nocheck
 "use strict";
+
 const { error } = require("@actions/core");
+
 var unirest = require("unirest");
+
+
 module.exports = function getToken(creatorEmail, creatorPassword) {
     return new Promise((resolve, reject) => unirest("POST", "https://app.artia.com/graphql")
         .headers({
@@ -14,6 +19,7 @@ module.exports = function getToken(creatorEmail, creatorPassword) {
 }`,
         variables: {},
     }))
+        // @ts-ignore
         .end(function (res) {
         if (res.error) {
             return reject(res.error);
