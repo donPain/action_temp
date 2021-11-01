@@ -3,21 +3,21 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 var postComment = require('./src/build/artiaApi/Comments/postComment.js');
 const event = github.context.eventName;
-
-
-try {
-// // Get the JSON webhook payload for the event that triggered the workflow//
 const payload            = JSON.stringify(github.context.payload, undefined, 2) 
 const objPayload         = JSON.parse(payload)
 const organizationId     = core.getInput('organizationId') //OrganizationId informado no main.yml do workflow
 const accountId          = core.getInput('accountId') //AccountId informado no main.yml do workflow
+
+try {
+// // Get the JSON webhook payload for the event that triggered the workflow//
+
 
 switch (event){
   case 'push':
     var pushContent          = objPayload.commits[0].message;
     const pushActivityId     = pushContent.split('[').pop().split(']')[0]; 
     pushContent              = content.replace('['+pushActivityId.toString+']',"");
-    var newComment       = postComment(organizationId, accountId, pushActivityId, pushContent);
+    var newComment           = postComment(organizationId, accountId, pushActivityId, pushContent);
   break;
 
   case 'pull_request':
