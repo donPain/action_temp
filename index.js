@@ -16,13 +16,13 @@ switch (event){
   case 'push':
     var pushContent          = objPayload.commits[0].message;
     const pushActivityId     = pushContent.split('[').pop().split(']')[0]; 
-    pushContent              = content.replace('['+pushActivityId.toString+']',"");
+    pushContent              = pushContent.replace('['+pushActivityId.toString+']',"");
     var newComment           = postComment(organizationId, accountId, pushActivityId, pushContent);
   break;
 
   case 'pull_request':
-    const pullRequest     = objPayload.pull_request;  
-    const prActivityId     = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
+    const pullRequest    = objPayload.pull_request;  
+    const prActivityId   = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
     var prContent        = pullRequest.body.toString();
     var newComment       = postComment(organizationId, accountId, prActivityId, prContent);
   break;
