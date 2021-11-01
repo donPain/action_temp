@@ -27,6 +27,7 @@ switch (event){
     const pullRequest    = objPayload.pull_request;  
     const prActivityId   = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
     var prContent        = pullRequest.body.toString();
+    prContent            += ' | link da alteração no git: ' + pullRequest.url
     var newComment       = postComment(organizationId, accountId, prActivityId, creatorEmail, prContent);
   break;
     
