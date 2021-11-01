@@ -1,6 +1,5 @@
-on: [push]
-  # pull_request:
-  #   types: [opened, closed, reopened]
+on: [push, pull_request]
+   
 
 jobs:
   artia_comment_job:
