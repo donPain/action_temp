@@ -11,7 +11,7 @@ inputs:
     default: 123
   creatorEmail: #email cadastrado no artia com acesso ao projeto/atividade.
     description: 'email cadastrado no artia com acesso ao projeto e atividade'
-    required: trues
+    required: true
     default: 'api@artia.com'
 outputs:
   time: # id da saída
