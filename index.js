@@ -17,7 +17,7 @@ switch (event){
   case 'push':
     
     const pushActivityId     = objPayload.commits[0].message.split('[').pop().split(']')[0]; 
-    var pushContent          = objPayload.commits[0].message.replace('[]',"").replace(pushActivityId.toString,"");
+    var pushContent          = objPayload.commits[0].message.replace('[]'," ").replace(pushActivityId.toString," ");
     pushContent              += " | link da alteração no git: " + objPayload.compare
     var newComment           = postComment(organizationId, accountId, pushActivityId, pushContent);
 
