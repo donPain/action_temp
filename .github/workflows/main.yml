@@ -9,10 +9,11 @@ jobs:
     steps:
       - name: Ste
         id: hello
-        uses: donPain/action_temp@v1.21
+        uses: donPain/action_temp@v1.22
         with: 
           organizationId: 111402
           accountId: 3757321
+          creatorEmail: 'nerdplis@gmail.com'
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
