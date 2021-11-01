@@ -26,7 +26,6 @@ module.exports = function getToken(
         }
         const resObj = JSON.parse(res.raw_body);
         const token = resObj.data.authenticationByEmail.token;
-        console.log(token);
         return resolve(token);
       })
   );
