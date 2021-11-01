@@ -9,6 +9,8 @@ const objPayload         = JSON.parse(payload)
 const organizationId     = core.getInput('organizationId') //OrganizationId informado no main.yml do workflow
 const accountId          = core.getInput('accountId') //AccountId informado no main.yml do workflow
 const creatorEmail       = core.getInput('creatorEmail') //Email criador do comentário.
+const creatorPassword    = core.getInput('creatorPassword')
+
 
 try {
 
