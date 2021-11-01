@@ -1,10 +1,14 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
 inputs:
+  organizationId: #id da organização 
+    description: 'id da organização no Artia'
+    require: true
+    default: 111402
   accountId:  # id do grupo de trabalho
     description: 'id do grupo de trabalho'
     required: true
-    default: '1'
+    default: 123
 outputs:
   time: # id da saída
     description: 'Atividade comentada'
