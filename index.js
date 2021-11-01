@@ -12,8 +12,6 @@ const creatorEmail       = core.getInput('creatorEmail') //Email criador do come
 
 try {
 
-
-
 switch (event){
 
   case 'push':

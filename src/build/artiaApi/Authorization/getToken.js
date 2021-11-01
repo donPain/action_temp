@@ -1,14 +1,14 @@
 "use strict";
 const { error } = require("@actions/core");
 var unirest = require("unirest");
-module.exports = function getToken() {
+module.exports = function getToken(creatorEmail, creatorPassword) {
     return new Promise((resolve, reject) => unirest("POST", "https://app.artia.com/graphql")
         .headers({
         "Content-Type": "application/json",
     })
         .send(JSON.stringify({
         query: `mutation{
-    authenticationByEmail(email:"nerdplis@gmail.com", password: "mobralzera") {
+    authenticationByEmail(email:"${creatorEmail}", password: "${creatorPassword}") {
         token
   }
 }`,

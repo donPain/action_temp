@@ -14,9 +14,10 @@ module.exports = async function createComment(
   accountId: number,
   activityId: number,
   creatorEmail: string,
+  creatorPassword: string,
   content: string
 ) {
-  var newToken = await asyncGetToken();
+  var newToken = await asyncGetToken(creatorEmail, creatorPassword);
   var req = unirest("POST", "https://app.artia.com/graphql")
     .headers({
       OrganizationId: organizationId.toString(),

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 "use strict";
 var unirest = require("unirest");
 var asyncGetToken = require("../Authorization/getToken");
@@ -9,8 +7,8 @@ var asyncGetToken = require("../Authorization/getToken");
 // const activityId: Number = 19689573;
 //Parametros la do core do action {organizationId, accountId}
 //Parametros informados no commit através de t:{activityId} | tudo que estiver dentro do comentário irá para tarefa.
-module.exports = async function createComment(organizationId, accountId, activityId, creatorEmail, content) {
-    var newToken = await asyncGetToken();
+module.exports = async function createComment(organizationId, accountId, activityId, creatorEmail, creatorPassword, content) {
+    var newToken = await asyncGetToken(creatorEmail, creatorPassword);
     var req = unirest("POST", "https://app.artia.com/graphql")
         .headers({
         OrganizationId: organizationId.toString(),
