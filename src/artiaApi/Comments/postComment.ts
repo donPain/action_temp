@@ -2,9 +2,9 @@ var unirest = require("unirest");
 var asyncGetToken = require("../Authorization/getToken");
 
 // const content: String = "Comentário da api";
-// const organizationId: Number = 111402;
-// const accountId: Number = 3757321;
-// const activityId: Number = 19689573;
+const organizationId: Number = 111402;
+const accountId: Number = 3757321;
+const activityId: Number = 19689573;
 
 //Parametros la do core do action {organizationId, accountId}
 //Parametros informados no commit através de t:{activityId} | tudo que estiver dentro do comentário irá para tarefa.

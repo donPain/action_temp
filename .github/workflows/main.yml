@@ -1,15 +1,13 @@
-on: [push]
+on: [pull_request]
 
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: A job to return payload
     steps:
-      - name: Hello world action step
+      - name: Ste
         id: hello
-        uses: donPain/action_temp@v1.5
-        with:
-          who-to-greet: 'Mona the Octocat'
+        uses: donPain/base_action@v1.1
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
