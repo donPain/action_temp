@@ -30,6 +30,13 @@ switch (event){
     prContent            += ' | link da alteração no git: ' + pullRequest.url
     var newComment       = postComment(organizationId, accountId, prActivityId, creatorEmail, creatorPassword, prContent);
   break;
+
+  case 'issue':      
+    const issue = objPayload.issue;
+    const issueActivityId = issue.title.split('[').pop().slipt(']')[0];
+    const issueContent    = issue.body
+    var newComment       = postComment(organizationId, accountId, issueActivityId, creatorEmail, creatorPassword, issueContent);
+  break;
     
   }
 
