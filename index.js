@@ -20,7 +20,7 @@ switch (event){
   case 'push':
     const pushActivityId     = objPayload.commits[0].message.split('[').pop().split(']')[0]; 
     var pushContent          = objPayload.commits[0].message.replace('[]'," ").replace(pushActivityId.toString," ");
-    pushContent              += " | link da alteração no git: " + objPayload.compare
+    pushContent              += ' Autor: '+ objPayload.head_commit.author.name + ' Tipo: Push | Mais informações em: ' + objPayload.compare
     var newComment           = postComment(organizationId, accountId, pushActivityId, creatorEmail, creatorPassword, pushContent);
   break;
   
@@ -28,14 +28,14 @@ switch (event){
     const pullRequest    = objPayload.pull_request;  
     const prActivityId   = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
     var prContent        = pullRequest.body.toString();
-    prContent            += ' | link da alteração no git: ' + pullRequest.url
+    prContent            += ' Autor: ' + pullRequest.user.login + '| Tipo: Pull Request | Mais informações em: ' + pullRequest.url 
     var newComment       = postComment(organizationId, accountId, prActivityId, creatorEmail, creatorPassword, prContent);
   break;
 
   case 'issues':      
     const issue = objPayload.issue;
     const issueActivityId = issue.title.split('[').pop().split(']')[0];
-    const issueContent    = issue.body
+    const issueContent    = +  ' Autor: '+issue.user.login+' Tipo: Issue | Mais informações em: ' + issue.url
     var newComment       = postComment(organizationId, accountId, issueActivityId, creatorEmail, creatorPassword, issueContent);
   break;
     
