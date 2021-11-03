@@ -1,3 +1,5 @@
-##VAMO QUE VAMO!!
+##Adicionando comentário na atividade do artia
 
-##Teste
+Push: no primeiro commit coloque o id da tarefa [idTarefa] na mensagem do commit.
+pull_request: no title do pull coloque o id da tarefa [idTarefa].
+issue open: no title da issue coloque o id da tarefa [idTarefa].
