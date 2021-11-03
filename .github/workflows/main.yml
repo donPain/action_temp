@@ -8,12 +8,12 @@ jobs:
     steps:
       - name: Ste
         id: hello
-        uses: donPain/action_temp@v1.30
+        uses: donPain/action_temp@v1.32
         with: 
           organizationId: 111402
           accountId: 3757321
           creatorEmail: 'nerdplis@gmail.com'
-          creatorPassword: 'mobralzera'
+          creatorPassword: ${{ secrets.ARTIA_PASSWORD }}
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
