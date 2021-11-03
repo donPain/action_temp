@@ -31,7 +31,7 @@ switch (event){
     var newComment       = postComment(organizationId, accountId, prActivityId, creatorEmail, creatorPassword, prContent);
   break;
 
-  case 'issue':      
+  case 'issues':      
     const issue = objPayload.issue;
     const issueActivityId = issue.title.split('[').pop().slipt(']')[0];
     const issueContent    = issue.body
