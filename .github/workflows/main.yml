@@ -1,8 +1,12 @@
 on: 
-   [push, pull_request]
    issues:
     types: [opened]
-   
+   push:
+    branches:
+      - main
+   pull_request:
+    branches:
+      - main
 
 jobs:
   artia_comment_job:
