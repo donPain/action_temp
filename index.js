@@ -19,23 +19,22 @@ switch (event){
 
   case 'push':
     const pushActivityId     = objPayload.commits[0].message.split('[').pop().split(']')[0]; 
-    var pushContent          = objPayload.commits[0].message.replace('[]'," ").replace(pushActivityId.toString," ");
-    pushContent              += ' Autor: '+ objPayload.head_commit.author.name + ' Tipo: Push | Mais informações em: ' + objPayload.compare
+    const pushContent        = `Autor: ${objPayload.head_commit.author.name}  | Tipo: Push | [Mais informações no GitHub](${objPayload.compare})`
     var newComment           = postComment(organizationId, accountId, pushActivityId, creatorEmail, creatorPassword, pushContent);
   break;
   
   case 'pull_request':
     const pullRequest    = objPayload.pull_request;  
     const prActivityId   = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
-    const prConent       = ' Autor: '+pullRequest.user.login+' | Tipo: Pull Request | '+ pullRequest.body + ' | Mais informações em: ' + pullRequest.url 
+    const prConent       = `Autor: '${pullRequest.user.login} | Tipo: Pull Request | '${pullRequest.body} | [Mais informações no GitHub](${pullRequest.url})`  
     var newComment       = postComment(organizationId, accountId, prActivityId, creatorEmail, creatorPassword, prContent);
   break;
 
   case 'issues':      
     const issue = objPayload.issue;
     const issueActivityId = issue.title.split('[').pop().split(']')[0];
-    const issueContent    = ' Autor: '+ issue.user.login +' | Tipo: Issue | '+ issue.body + ' | Mais informações em: ' + issue.url
-    var newComment       = postComment(organizationId, accountId, issueActivityId, creatorEmail, creatorPassword, issueContent);
+    const issueContent    = `Autor: ${issue.user.login} | Tipo: Issue | ${issue.body} ' | [Mais informações no GitHub](${issue.url})` 
+    var newComment        = postComment(organizationId, accountId, issueActivityId, creatorEmail, creatorPassword, issueContent);
   break;
     
   }
