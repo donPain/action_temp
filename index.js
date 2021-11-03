@@ -27,15 +27,14 @@ switch (event){
   case 'pull_request':
     const pullRequest    = objPayload.pull_request;  
     const prActivityId   = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
-    var prContent        = pullRequest.body.toString();
-    prContent            += ' Autor: ' + pullRequest.user.login + '| Tipo: Pull Request | Mais informações em: ' + pullRequest.url 
+    const prConent       = ' Autor: '+pullRequest.user.login+' | Tipo: Pull Request | '+ pullRequest.body + ' | Mais informações em: ' + pullRequest.url 
     var newComment       = postComment(organizationId, accountId, prActivityId, creatorEmail, creatorPassword, prContent);
   break;
 
   case 'issues':      
     const issue = objPayload.issue;
     const issueActivityId = issue.title.split('[').pop().split(']')[0];
-    const issueContent    = +  ' Autor: '+issue.user.login+' Tipo: Issue | Mais informações em: ' + issue.url
+    const issueContent    = ' Autor: '+ issue.user.login +' | Tipo: Issue | '+ issue.body + ' | Mais informações em: ' + issue.url
     var newComment       = postComment(organizationId, accountId, issueActivityId, creatorEmail, creatorPassword, issueContent);
   break;
     
