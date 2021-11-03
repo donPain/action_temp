@@ -1,5 +1,5 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Artia Comment'
+description: 'Ação para comentar no Artia'
 inputs:
   organizationId: #id da organização 
     description: 'id da organização no Artia'
