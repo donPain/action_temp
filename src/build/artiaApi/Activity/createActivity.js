@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use strict";
 var unirest = require("unirest");
 var asyncGetToken = require("../Authorization/getToken");
