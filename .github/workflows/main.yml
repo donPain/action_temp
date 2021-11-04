@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to comment in artia activity.
     steps:
-      - name: Ste
-        id: hello
+      - name: Comentando atividade
+        id: Comment
         uses: donPain/action_temp@v1.40
         with: 
           organizationId: 111402
