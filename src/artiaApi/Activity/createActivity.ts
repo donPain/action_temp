@@ -20,6 +20,7 @@ module.exports = async function createActivity(
   folderId: number,
   title: string,
   description: string,
+  categoryText: string,
   estimatedEffort: number,
   creatorEmail: string,
   creatorPassword: string
@@ -39,7 +40,8 @@ module.exports = async function createActivity(
             accountId: ${accountId},  # OBRIGATÓRIO - ID do grupo de trabalho
             folderId: ${folderId}, # OBRIGATÓRIO - ID da pasta ou do projeto
             description: "${description}", 
-            estimatedEffort: ${estimatedEffort}
+            estimatedEffort: ${estimatedEffort},
+            categoryText: ${categoryText}
             ) {
             id,
             folderTypeName,

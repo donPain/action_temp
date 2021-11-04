@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Comentando atividade
         id: Comment
-        uses: donPain/action_temp@v1.42
+        uses: donPain/action_temp@v1.43
         with: 
           organizationId: 111402
           accountId: 3757321
