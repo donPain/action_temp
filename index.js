@@ -5,13 +5,12 @@ var postComment = require('./src/build/artiaApi/Comments/postComment.js');
 const event = github.context.eventName;
 // // Get the JSON webhook payload for the event that triggered the workflow//
 const payload            = JSON.stringify(github.context.payload, undefined, 2) 
-
 const objPayload         = JSON.parse(payload)
 const organizationId     = core.getInput('organizationId') //OrganizationId é o id da empresa/organização cadastrada no artia. (informado no main.yml do workflow)
 const accountId          = core.getInput('accountId') //AccountId é o id do grupo de trabalho. (informado no main.yml do workflow)
 const creatorEmail       = core.getInput('creatorEmail') //Email criador do comentário (informado no main.yml do workflow).
 const creatorPassword    = core.getInput('creatorPassword')//Password (Váriavel de ambiente{sescrets.ARTIA_PASSWORD} informada no main.yml do workflow).
-
+const folderId           = core.getInput('folderId')//Id da pasta ou do projeto. 
 
 try {
 

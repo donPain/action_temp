@@ -9,6 +9,10 @@ inputs:
     description: 'id do grupo de trabalho'
     required: true
     default: 123
+  folderId: #ID da pasta ou do projeto para criar uma atividade.
+    description: 'pasta ou projeto para criar uma atividade'
+    required: false
+    default: '123'
   creatorEmail: #email cadastrado no artia com acesso ao projeto/atividade.
     description: 'email cadastrado no artia com acesso ao projeto e atividade'
     required: true
