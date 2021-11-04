@@ -34,8 +34,9 @@ switch (event){
     const issue = objPayload.issue; 
     const title = issue.title;
     const description = issue.body;
+    const categoryText = issue.labels[0].name;
     const estimatedEffort = issue.title.split('[').pop().split(']')[0];
-    var newActivity      = createActivity(organizationId, accountId, folderId, title, description, estimatedEffort, creatorEmail, creatorPassword);
+    var newActivity      = createActivity(organizationId, accountId, folderId, title, description, categoryText, estimatedEffort, creatorEmail, creatorPassword);
   break;
     
   }

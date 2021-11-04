@@ -12,7 +12,7 @@ var asyncGetToken = require("../Authorization/getToken");
 // // const activityId: Number = 19689573;
 //Parametros la do core do action {organizationId, accountId}
 //Parametros informados no commit através de t:{activityId} | tudo que estiver dentro do comentário irá para tarefa.
-module.exports = async function createActivity(organizationId, accountId, folderId, title, description, estimatedEffort, creatorEmail, creatorPassword) {
+module.exports = async function createActivity(organizationId, accountId, folderId, title, description, categoryText, estimatedEffort, creatorEmail, creatorPassword) {
     var newToken = await asyncGetToken(creatorEmail, creatorPassword);
     var req = unirest("POST", "https://app.artia.com/graphql")
         .headers({
@@ -27,7 +27,8 @@ module.exports = async function createActivity(organizationId, accountId, folder
             accountId: ${accountId},  # OBRIGATÓRIO - ID do grupo de trabalho
             folderId: ${folderId}, # OBRIGATÓRIO - ID da pasta ou do projeto
             description: "${description}", 
-            estimatedEffort: ${estimatedEffort}
+            estimatedEffort: ${estimatedEffort},
+            categoryText: ${categoryText}
             ) {
             id,
             folderTypeName,
