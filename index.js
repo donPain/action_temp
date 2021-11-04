@@ -2,6 +2,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 var postComment = require('./src/build/artiaApi/Comments/postComment.js');
+var createActivity = require('./src/build/artiaApi/Activity/createActivity.js');
 const event = github.context.eventName;
 // // Get the JSON webhook payload for the event that triggered the workflow//
 const payload            = JSON.stringify(github.context.payload, undefined, 2) 
@@ -30,10 +31,11 @@ switch (event){
   break;
 
   case 'issues':      
-    const issue = objPayload.issue;
-    const issueActivityId = issue.title.split('[').pop().split(']')[0];
-    const issueContent    = `Autor: ${issue.user.login} | Tipo: Issue | ${issue.body} | Mais informações no GitHub: ${issue.url}` 
-    var newComment        = postComment(organizationId, accountId, issueActivityId, creatorEmail, creatorPassword, issueContent);
+    const issue = objPayload.issue; 
+    const title = issue.title;
+    const description = issue.body;
+    const estimatedEffort = issue.title.split('[').pop().split(']')[0];
+    var newActivity      = createActivity(organizationId, accountId, folderId, title, description, estimatedEffort, creatorEmail, creatorPassword);
   break;
     
   }
