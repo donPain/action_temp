@@ -20,6 +20,7 @@ jobs:
         with: 
           organizationId: 111402
           accountId: 3757321
+          folderId: 3764173
           creatorEmail: 'nerdplis@gmail.com'
           creatorPassword: ${{ secrets.ARTIA_PASSWORD }}
       # Use the output from the `hello` step
