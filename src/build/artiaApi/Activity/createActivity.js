@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use strict";
 var unirest = require("unirest");
 var asyncGetToken = require("../Authorization/getToken");
@@ -34,79 +33,8 @@ module.exports = async function createActivity(organizationId, accountId, folder
             id,
             folderTypeName,
             uid,
-            communityId,
-            customStatus {
-                id, 
-                statusName,
-                status
-            },
-            status,
-            title,
-            description,
-            groupCategories,
-            priority,
-            estimatedStart,
-            timeEstimatedStart,
-            estimatedEnd,
-            timeEstimatedEnd,
-            durationEstimatedCalculated,
-            actualStart,
-            timeActualStart,
-            actualEnd,
-            timeActualEnd,
-            durationCalculated
-            estimatedEffort,
-            actualEffort,
-            remainingEffort,
-            completedPercent,
-            lastCalculation,
-            workDaysEstimated,
-            remainingDays,
-            daysToCalculation,
-            replanned,
-            replannedCount,
-            position,
-            financePredicted, 
-            financeAccomplished,
-            isCriticalPath,
-            customColumns, 
-            tendencyEnd,
-            tfsKey, 
-            verifyConflicts,
-            typeColor, 
-            schedulePerformanceIndex,
-            distributeAllocationAutomatically,
-            createdAt,
-            updatedAt,
-            deletedAt,
-            createdById,
-            createdForUser,
-            responsible {
-                id,
-                name,
-                email
-            },
-            customField {
-                hashField,
-                value
-            },
-            parent {
-                id,
-                name,
-                accountId,
-            },
-            comments {
-                id,
-                content,
-                author{
-                    id,
-                    name,
-                    email
-                },
-                createdAt    
-            }
-        }
-    }`,
+            communityId
+          }`,
         variables: {},
     }))
         .end(function (res) {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use strict";
 var unirest = require("unirest");
 var asyncGetToken = require("../Authorization/getToken");
@@ -24,29 +23,7 @@ module.exports = async function createComment(organizationId, accountId, activit
           object: "activity", #obrigatório
           content: "${content}", #obrigatório | Quando for string dentro de variável com $ usar tbm os ""
           createdBy: "${creatorEmail}", #opcional, pode ser id ou email
-      ) {
-          id,
-          content,
-          createdAt,
-          createdByApi,  
-          author {
-              id,
-              name,
-              email
-          },
-          registeredBy {
-              id,
-              name,
-              email
-          }
-          users {
-              id,
-              name,
-              email
-          }
-  
-      }
-  }`,
+      ) `,
         variables: {},
     }))
         .end(function (res) {
