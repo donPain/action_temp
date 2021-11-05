@@ -26,17 +26,17 @@ switch (event){
   case 'pull_request':
     const pullRequest    = objPayload.pull_request;  
     const prActivityId   = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
-    const prContent      = `Autor: '${pullRequest.user.login} | Tipo: Pull Request | ${pullRequest.body} | Mais informações no GitHub: ${pullRequest.url}`  
+    const prContent      = `Autor: '${pullRequest.user.login} | Tipo: Pull Request | ${pullRequest.body.replace('[ ]','')} | Mais informações no GitHub: ${pullRequest.url}`  
     var newComment       = postComment(organizationId, accountId, prActivityId, creatorEmail, creatorPassword, prContent);
   break;
 
   case 'issues':      
-    const issue = objPayload.issue; 
-    const title = issue.title;
-    const description = issue.body;
-    const categoryText = issue.labels[0].name;
-    const estimatedEffort = issue.title.split('[').pop().split(']')[0];
-    var newActivity      = createActivity(organizationId, accountId, folderId, title, description, categoryText, estimatedEffort, creatorEmail, creatorPassword);
+    const issue             = objPayload.issue; 
+    const description       = issue.body;
+    const categoryText      = (issue.labels.lenght > 0 ? issue.labels[0].name : "");
+    const estimatedEffort   = issue.title.split('[').pop().split(']')[0];
+    const title             = issue.title.replace('[','').replace(']','').replace(estimatedEffort,'')
+    var newActivity         = createActivity(organizationId, accountId, folderId, title, description, categoryText, estimatedEffort, creatorEmail, creatorPassword);
   break;
     
   }
