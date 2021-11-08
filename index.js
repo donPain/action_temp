@@ -20,14 +20,14 @@ switch (event){
 
   case 'push':
     var activityId     = objPayload.commits[0].message.split('[').pop().split(']')[0]; 
-    const content        = `Autor: ${objPayload.head_commit.author.name}  | Tipo: Push | Mais informações no GitHub: ${objPayload.compare}`
+    var content        = `Autor: ${objPayload.head_commit.author.name}  | Tipo: Push | Mais informações no GitHub: ${objPayload.compare}`
     artia.createComment(organizationId, accountId, activityId, creatorEmail, creatorPassword, content);
   break;
   
   case 'pull_request':
     const pullRequest    = objPayload.pull_request;  
     var activityId   = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
-    const content      = `Autor: '${pullRequest.user.login} | Tipo: Pull Request | ${pullRequest.body.replace('[ ]','')} | Mais informações no GitHub: ${pullRequest.url}`  
+    var content      = `Autor: '${pullRequest.user.login} | Tipo: Pull Request | ${pullRequest.body.replace('[ ]','')} | Mais informações no GitHub: ${pullRequest.url}`  
     artia.createComment(organizationId, accountId, activityId, creatorEmail, creatorPassword, content);
   break;
 
