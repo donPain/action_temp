@@ -4,7 +4,7 @@
       "module": "commonjs",
       "esModuleInterop": true,
       "outDir": "src/build",
-      "rootDir": "./src",
+      "rootDir": "./src/artiaApi",
       "target": "ES2017",
       "skipLibCheck": true,
       "strict": true

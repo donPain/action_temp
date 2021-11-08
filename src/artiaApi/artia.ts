@@ -1,9 +1,7 @@
 var unirest = require("unirest");
-var asyncGetToken = require("../Authorization/getToken");
-//Parametros la do core do action {organizationId, accountId}
-//Parametros informados no commit através de t:{activityId} | tudo que estiver dentro do comentário irá para tarefa.
+const { error } = require("@actions/core");
 
-export default async function createActivity(
+export async function createActivity(
   organizationId: number,
   accountId: number,
   folderId: number,
@@ -14,7 +12,7 @@ export default async function createActivity(
   creatorEmail: string,
   creatorPassword: string
 ) {
-  var newToken = await asyncGetToken(creatorEmail, creatorPassword);
+  var newToken = await getToken(creatorEmail, creatorPassword);
   var req = unirest("POST", "https://app.artia.com/graphql")
     .headers({
       OrganizationId: organizationId.toString(),
@@ -81,7 +79,8 @@ export default async function createActivity(
             updatedAt,
             deletedAt,
             createdById,
-            createdForUser,
+            createdForUser,escription = "descrição de atividade";
+
             responsible {
                 id,
                 name,
@@ -106,6 +105,89 @@ export default async function createActivity(
                 },
                 createdAt    
             }
+        }
+    }`,
+        variables: {},
+      })
+    )
+    .end(function (res: { error: string | undefined; raw_body: any }) {
+      if (res.error) throw new Error(res.error);
+      console.log(res.raw_body);
+    });
+}
+
+export function getToken(creatorEmail: string, creatorPassword: string) {
+  return new Promise((resolve, reject) =>
+    unirest("POST", "https://app.artia.com/graphql")
+      .headers({
+        "Content-Type": "application/json",
+      })
+      .send(
+        JSON.stringify({
+          query: `mutation{
+    authenticationByEmail(email:"${creatorEmail}", password: "${creatorPassword}") {
+        token
+  }
+}`,
+          variables: {},
+        })
+      )
+      .end(function (res: { error: any; raw_body: string }) {
+        if (res.error) {
+          return reject(res.error);
+        }
+        const resObj = JSON.parse(res.raw_body);
+        const token = resObj.data.authenticationByEmail.token;
+        return resolve(token);
+      })
+  );
+}
+
+export async function createComment(
+  organizationId: number,
+  accountId: number,
+  activityId: number,
+  creatorEmail: string,
+  creatorPassword: string,
+  content: string
+) {
+  var newToken = await getToken(creatorEmail, creatorPassword);
+  var req = unirest("POST", "https://app.artia.com/graphql")
+    .headers({
+      OrganizationId: organizationId.toString(),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + newToken,
+    })
+    .send(
+      JSON.stringify({
+        query: `mutation{
+        createComment(
+            accountId: ${accountId}, #obrigatório
+            id: ${activityId}, #obrigatório
+            object: "activity", #obrigatório
+            content: "${content}", #obrigatório | Quando for string dentro de variável com $ usar tbm os ""
+            createdBy: "${creatorEmail}", #opcional, pode ser id ou email
+        ) {
+            id,
+            content,
+            createdAt,
+            createdByApi,  
+            author {
+                id,
+                name,
+                email
+            },
+            registeredBy {
+                id,
+                name,
+                email
+            }
+            users {
+                id,
+                name,
+                email
+            }
+    
         }
     }`,
         variables: {},

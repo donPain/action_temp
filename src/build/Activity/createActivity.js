@@ -1,17 +1,10 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var unirest = require("unirest");
 var asyncGetToken = require("../Authorization/getToken");
-// const organizationId: Number = 111402;
-// const accountId: Number = 3757321;
-// const folderId = 3764173;
-// const estimatedEffort = 3;
-// const title = "Teste de atividade";
-// const d// const creatorEmail = "nerdplis@gmail.com";
-// const creatorPassword = "mobralzera";
-// // const activityId: Number = 19689573;
 //Parametros la do core do action {organizationId, accountId}
 //Parametros informados no commit através de t:{activityId} | tudo que estiver dentro do comentário irá para tarefa.
-module.exports = async function createActivity(organizationId, accountId, folderId, title, description, categoryText, estimatedEffort, creatorEmail, creatorPassword) {
+async function createActivity(organizationId, accountId, folderId, title, description, categoryText, estimatedEffort, creatorEmail, creatorPassword) {
     var newToken = await asyncGetToken(creatorEmail, creatorPassword);
     var req = unirest("POST", "https://app.artia.com/graphql")
         .headers({
@@ -78,8 +71,7 @@ module.exports = async function createActivity(organizationId, accountId, folder
             updatedAt,
             deletedAt,
             createdById,
-            createdForUser,escription = "descrição de atividade";
-
+            createdForUser,
             responsible {
                 id,
                 name,
@@ -113,4 +105,5 @@ module.exports = async function createActivity(organizationId, accountId, folder
             throw new Error(res.error);
         console.log(res.raw_body);
     });
-};
+}
+exports.default = createActivity;
