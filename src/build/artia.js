@@ -70,8 +70,7 @@ async function createActivity(organizationId, accountId, folderId, title, descri
             updatedAt,
             deletedAt,
             createdById,
-            createdForUser,escription = "descrição de atividade";
-
+            createdForUser,
             responsible {
                 id,
                 name,

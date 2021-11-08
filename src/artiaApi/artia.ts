@@ -79,8 +79,7 @@ export async function createActivity(
             updatedAt,
             deletedAt,
             createdById,
-            createdForUser,escription = "descrição de atividade";
-
+            createdForUser,
             responsible {
                 id,
                 name,
