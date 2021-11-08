@@ -6,8 +6,7 @@ var asyncGetToken = require("../Authorization/getToken");
 // const folderId = 3764173;
 // const estimatedEffort = 3;
 // const title = "Teste de atividade";
-// const description = "descrição de atividade";
-// const creatorEmail = "nerdplis@gmail.com";
+// const d// const creatorEmail = "nerdplis@gmail.com";
 // const creatorPassword = "mobralzera";
 // // const activityId: Number = 19689573;
 //Parametros la do core do action {organizationId, accountId}
@@ -79,7 +78,8 @@ module.exports = async function createActivity(organizationId, accountId, folder
             updatedAt,
             deletedAt,
             createdById,
-            createdForUser,
+            createdForUser,escription = "descrição de atividade";
+
             responsible {
                 id,
                 name,
