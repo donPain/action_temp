@@ -8,6 +8,7 @@
       "target": "ES2017",
       "skipLibCheck": true,
       "strict": true
-  }
+  },
+  "exclude": ["node_modules", "build", "dist", "src/**/*.js", "src/**/*.jsx"]
 }
 

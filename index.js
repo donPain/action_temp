@@ -1,7 +1,8 @@
 // @ts-nocheck
 const core = require('@actions/core');
 const github = require('@actions/github');
-const  artia = require('./src/build/artia');
+const activity = require('./src/build/Activity/activity')
+
 
 const event = github.context.eventName;
 // // Get the JSON webhook payload for the event that triggered the workflow//
@@ -14,6 +15,7 @@ const creatorPassword    = core.getInput('creatorPassword')//Password (Váriavel
 const folderId           = core.getInput('folderId')//Id da pasta ou do projeto. 
 
 
+
 try {
 
 switch (event){
@@ -21,14 +23,14 @@ switch (event){
   case 'push':
     var activityId     = objPayload.commits[0].message.split('[').pop().split(']')[0]; 
     var content        = `Autor: ${objPayload.head_commit.author.name}  | Tipo: Push | Mais informações no GitHub: ${objPayload.compare}`
-    artia.createComment(organizationId, accountId, activityId, creatorEmail, creatorPassword, content);
+    activity.comment(organizationId, accountId, activityId, creatorEmail, creatorPassword, content);
   break;
   
   case 'pull_request':
     const pullRequest    = objPayload.pull_request;  
     var activityId   = pullRequest.title.split('[').pop().split(']')[0]; // returns ActivityId
     var content      = `Autor: '${pullRequest.user.login} | Tipo: Pull Request | ${pullRequest.body.replace('[ ]','')} | Mais informações no GitHub: ${pullRequest.url}`  
-    artia.createComment(organizationId, accountId, activityId, creatorEmail, creatorPassword, content);
+    activity.comment(organizationId, accountId, activityId, creatorEmail, creatorPassword, content);
   break;
 
   case 'issues':      
@@ -37,7 +39,7 @@ switch (event){
     const categoryText      = (issue.labels.lenght > 0 ? issue.labels[0].name : "");
     const estimatedEffort   = issue.title.split('[').pop().split(']')[0];
     const title             = issue.title.replace('[','').replace(']','').replace(estimatedEffort,'')
-    artia.createActivity(organizationId, accountId, folderId, title, description, categoryText, estimatedEffort, creatorEmail, creatorPassword);
+    activity.create(organizationId, accountId, folderId, title, description, categoryText, estimatedEffort, creatorEmail, creatorPassword);
   break;
     
   }
