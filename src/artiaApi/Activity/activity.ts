@@ -1,6 +1,5 @@
-// @ts-nocheck
-const axios = require("axios");
-const asyncGetToken = require("../Authorization/getToken");
+import axios, { AxiosError } from "axios";
+import getToken from "../Authorization/getToken";
 
 module.exports = {
   temp() {
@@ -9,11 +8,11 @@ module.exports = {
 
   async findByTitle(
     organizationId: number,
-    accountid: number,
+    accountId: number,
     folderId: number,
     title: string
   ) {
-    const newToken = await artia.getToken(creatorEmail, creatorPassword);
+    const newToken = await getToken(creatorEmail, creatorPassword);
     var data = JSON.stringify({
       query: `query{
             listingActivities(
@@ -46,11 +45,11 @@ module.exports = {
       },
       data: data,
     };
-    axios(config)
+    axios(JSON.stringify(config))
       .then(function (response) {
         const obj = JSON.parse(JSON.stringify(response.data, undefined, 2));
         const activityArr = obj.data.listingActivities;
-        const activity = activityArr.filter(function (obj) {
+        const activity = activityArr.filter(function (obj: { title: string }) {
           return obj.title === "mobralzera [4]";
         });
         return activity;
@@ -72,15 +71,19 @@ module.exports = {
     creatorPassword: string
   ) {
     var newToken = await asyncGetToken(creatorEmail, creatorPassword);
-    var req = unirest("POST", "https://app.artia.com/graphql")
-      .headers({
+    var config = {
+      method: "post",
+      url: "https://app.artia.com/graphql",
+      headers: {
         OrganizationId: organizationId.toString(),
         "Content-Type": "application/json",
         Authorization: "Bearer " + newToken,
-      })
-      .send(
-        JSON.stringify({
-          query: `mutation{
+      },
+      data: data,
+    };
+
+    var data = JSON.stringify({
+      query: `mutation{
             createActivity(
               title: "${title}",
               accountId: ${accountId},  # OBRIGATÓRIO - ID do grupo de trabalho
@@ -165,12 +168,14 @@ module.exports = {
               }
           }
       }`,
-          variables: {},
-        })
-      )
-      .end(function (res: { error: string | undefined; raw_body: any }) {
-        if (res.error) throw new Error(res.error);
-        console.log(res.raw_body);
+      variables: {},
+    });
+    axios(JSON.stringify(config))
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   },
 
@@ -183,15 +188,18 @@ module.exports = {
     content: string
   ) {
     var newToken = await asyncGetToken(creatorEmail, creatorPassword);
-    var req = unirest("POST", "https://app.artia.com/graphql")
-      .headers({
+    var config = {
+      method: "post",
+      url: "https://app.artia.com/graphql",
+      headers: {
         OrganizationId: organizationId.toString(),
         "Content-Type": "application/json",
         Authorization: "Bearer " + newToken,
-      })
-      .send(
-        JSON.stringify({
-          query: `mutation{
+      },
+      data: data,
+    };
+    var data = JSON.stringify({
+      query: `mutation{
         createComment(
             accountId: ${accountId}, #obrigatório
             id: ${activityId}, #obrigatório
@@ -221,12 +229,14 @@ module.exports = {
   
         }
     }`,
-          variables: {},
-        })
-      )
-      .end(function (res: { error: string | undefined; raw_body: any }) {
-        if (res.error) throw new Error(res.error);
-        console.log(res.raw_body);
+      variables: {},
+    });
+    axios(JSON.stringify(config))
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   },
 };

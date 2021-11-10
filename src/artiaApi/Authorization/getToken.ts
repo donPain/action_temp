@@ -1,32 +1,34 @@
-const { error } = require("@actions/core");
-var unirest = require("unirest");
+//
+import axios, { AxiosError } from "axios";
 
-module.exports = function getToken(
-  creatorEmail: string,
-  creatorPassword: string
-) {
-  return new Promise((resolve, reject) =>
-    unirest("POST", "https://app.artia.com/graphql")
-      .headers({
-        "Content-Type": "application/json",
-      })
-      .send(
-        JSON.stringify({
-          query: `mutation{
+const creatorEmail: string = "nerdplis@gmail.com";
+const creatorPassword: string = "mobralzera";
+
+var data = JSON.stringify({
+  query: `mutation{
     authenticationByEmail(email:"${creatorEmail}", password: "${creatorPassword}") {
         token
   }
 }`,
-          variables: {},
-        })
-      )
-      .end(function (res: { error: any; raw_body: string }) {
-        if (res.error) {
-          return reject(res.error);
-        }
-        const resObj = JSON.parse(res.raw_body);
-        const token = resObj.data.authenticationByEmail.token;
-        return resolve(token);
-      })
-  );
+  variables: {},
+});
+
+var config = {
+  method: "post",
+  url: "app.artia.com/graphql",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  // data: data,
 };
+
+axios(JSON.stringify(config))
+  .then(function (response) {
+    const resObj = JSON.parse(JSON.stringify(response.data, undefined, 2));
+    // const token = resObj.data.authenticationByEmail.token;
+    // return token;
+    console.log(JSON.stringify(resObj));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });

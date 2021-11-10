@@ -1,13 +1,16 @@
 "use strict";
-// @ts-nocheck
-const axios = require("axios");
-const asyncGetToken = require("../Authorization/getToken");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const axios_1 = __importDefault(require("axios"));
+const getToken_1 = __importDefault(require("../Authorization/getToken"));
 module.exports = {
     temp() {
         console.log("integração brasileira");
     },
-    async findByTitle(organizationId, accountid, folderId, title) {
-        const newToken = await artia.getToken(creatorEmail, creatorPassword);
+    async findByTitle(organizationId, accountId, folderId, title) {
+        const newToken = await (0, getToken_1.default)(creatorEmail, creatorPassword);
         var data = JSON.stringify({
             query: `query{
             listingActivities(
@@ -39,7 +42,7 @@ module.exports = {
             },
             data: data,
         };
-        axios(config)
+        (0, axios_1.default)(JSON.stringify(config))
             .then(function (response) {
             const obj = JSON.parse(JSON.stringify(response.data, undefined, 2));
             const activityArr = obj.data.listingActivities;
@@ -54,13 +57,17 @@ module.exports = {
     },
     async create(organizationId, accountId, folderId, title, description, categoryText, estimatedEffort, creatorEmail, creatorPassword) {
         var newToken = await asyncGetToken(creatorEmail, creatorPassword);
-        var req = unirest("POST", "https://app.artia.com/graphql")
-            .headers({
-            OrganizationId: organizationId.toString(),
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + newToken,
-        })
-            .send(JSON.stringify({
+        var config = {
+            method: "post",
+            url: "https://app.artia.com/graphql",
+            headers: {
+                OrganizationId: organizationId.toString(),
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + newToken,
+            },
+            data: data,
+        };
+        var data = JSON.stringify({
             query: `mutation{
             createActivity(
               title: "${title}",
@@ -147,22 +154,28 @@ module.exports = {
           }
       }`,
             variables: {},
-        }))
-            .end(function (res) {
-            if (res.error)
-                throw new Error(res.error);
-            console.log(res.raw_body);
+        });
+        (0, axios_1.default)(config)
+            .then(function (response) {
+            console.log(JSON.stringify(response.data));
+        })
+            .catch(function (error) {
+            console.log(error);
         });
     },
     async comment(organizationId, accountId, activityId, creatorEmail, creatorPassword, content) {
         var newToken = await asyncGetToken(creatorEmail, creatorPassword);
-        var req = unirest("POST", "https://app.artia.com/graphql")
-            .headers({
-            OrganizationId: organizationId.toString(),
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + newToken,
-        })
-            .send(JSON.stringify({
+        var config = {
+            method: "post",
+            url: "https://app.artia.com/graphql",
+            headers: {
+                OrganizationId: organizationId.toString(),
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + newToken,
+            },
+            data: data,
+        };
+        var data = JSON.stringify({
             query: `mutation{
         createComment(
             accountId: ${accountId}, #obrigatório
@@ -194,11 +207,13 @@ module.exports = {
         }
     }`,
             variables: {},
-        }))
-            .end(function (res) {
-            if (res.error)
-                throw new Error(res.error);
-            console.log(res.raw_body);
+        });
+        (0, axios_1.default)(config)
+            .then(function (response) {
+            console.log(JSON.stringify(response.data));
+        })
+            .catch(function (error) {
+            console.log(error);
         });
     },
 };
